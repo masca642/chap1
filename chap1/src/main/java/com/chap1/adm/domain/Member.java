@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -26,6 +27,18 @@ import lombok.Setter;
 @NoArgsConstructor  //기본 생성자 자동 추가(..?)
 @DiscriminatorValue("MEMBER")  // 엔티티 저장 시 구분 컬럼에 입력할 값을 지정(..?)
 public class Member {
+	
+	public Member(String id) {
+		//super().id;
+		this.id = id;
+	}
+	
+	@PrePersist
+    public void onCreate() {
+        //super.setEnabled(!Boolean.FALSE.equals(super.getEnabled()));
+		this.enabled = !Boolean.FALSE.equals(enabled);
+    }
+	
 	@Id
 	private String id;
 	private String name;
